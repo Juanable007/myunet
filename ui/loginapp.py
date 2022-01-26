@@ -1,14 +1,15 @@
 # Importing necessary modules.
+import os
 import random
 import sys
 import sqlite3
+import traceback
 import webbrowser
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QFileDialog
 from PyQt5.QtGui import QPixmap
-
-
+import db
 # First Screen -Welcome Screen- class. Inheriting from QDialog class.
 class WelcomeScreen(QDialog):
     def __init__(self):
@@ -57,10 +58,11 @@ class LoginScreen(QDialog):
 
         # This statement connects database and queries whether the user exists.
         else:
-            conn = sqlite3.connect("login_app.db")
-            cur = conn.cursor()
-            query = 'SELECT password FROM login_info WHERE username =\'' + user + "\'"
-            email = 'SELECT email FROM login_info WHERE username =\'' + user + "\'"
+            cur, conn = db.getLink(self)
+            # conn = sqlite3.connect("login_app.db")
+            # cur = conn.cursor()
+            query = 'SELECT password FROM user WHERE userName =\'' + user + "\'"
+            email = 'SELECT email FROM user WHERE userName =\'' + user + "\'"
             cur.execute(query)
             result_pass = cur.fetchone()
             result_pass_password = result_pass[0]
@@ -106,10 +108,12 @@ class CreateAccScreen(QDialog):
         elif password != confirmpassword:
             self.error.setText("Passwords do not match.")
         else:
-            conn = sqlite3.connect("login_app.db")
-            cur = conn.cursor()
-
-            cur.execute("Insert into login_info values (?,?,?)", (user, password, email))
+            # conn = sqlite3.connect("login_app.db")
+            cur,conn= db.getLink(self)
+            # cur = conn.cursor()
+            sql = "insert into user(userName,passWord,email) values(%s,%s,%s)"  # 注意此处与前一种形式的不同
+            parm=(user,password,email)
+            cur.execute(sql,parm)
 
             conn.commit()
             conn.close()
@@ -124,28 +128,28 @@ class EmailScreen(QDialog):
     def __init__(self, email):
         self.email = email
         super(EmailScreen, self).__init__()
-        loadUi("mailCode.ui", self)
+        loadUi("emailCode.ui", self)
         import smtplib
         from email.mime.multipart import MIMEMultipart
         from email.mime.text import MIMEText
 
         # Sending random email registration code.
         message = MIMEMultipart()
-        message["From"] = "loginappbaver@gmail.com"
+        message["From"] = "1152626533@qq.com"
         message["To"] = email
-        message["Subject"] = "Baver Kaçar Login App Entrance"
+        message["Subject"] = "[岩石薄片分割系统登录验证]"
         randomCode = random.randint(1000, 9999)
+        print(randomCode)
         text = "You need to enter the code down below for login to app:\n{}".format(randomCode)
         message_body = MIMEText(text, "plain")
         message.attach(message_body)
 
         try:
-            mail = smtplib.SMTP("smtp.gmail.com", 587)
+            mail = smtplib.SMTP("smtp.qq.com", 25)
             mail.ehlo()
             mail.starttls()
             print(123123)
-            mail.login("loginappbaver", "loginapp11-")
-            print(12)
+            mail.login("1152626533@qq.com", "vrjqthaaybnyhgja")
             mail.sendmail(message["From"], message["To"], message.as_string())
             print("mail sent successfully")
             mail.close()
@@ -153,6 +157,7 @@ class EmailScreen(QDialog):
         except:
             sys.stderr.write("Problem occurred")
             sys.stderr.flush()
+            traceback.print_exc()
 
         self.login.clicked.connect(lambda: self.emailLoginButton(randomCode))
 
@@ -160,9 +165,11 @@ class EmailScreen(QDialog):
         text = self.emailfield.text()
         if text == str(randomCode):
             self.error.setText("Logged in Successfully")
-            baverkacar = BaverKacar()
-            widget.addWidget(baverkacar)
-            widget.setCurrentIndex(widget.currentIndex() + 1)
+            os.system("python MainEntry.py")
+            # baverkacar = BaverKacar()
+            # widget.addWidget()
+            # widget.addWidget(baverkacar)
+            # widget.setCurrentIndex(widget.currentIndex() + 1)
         else:
             self.error.setText("Code is wrong")
 
@@ -191,6 +198,17 @@ class FillProfileScreen(QDialog):
         self.upload.clicked.connect(lambda: self.on_click())
 
     def openLoginScreen(self):
+        userName= self.username.text();
+        email=self.email.text()
+        company = self.company.text()
+        country = self.country.text()
+        gender = self.gender.text()
+        cur, conn = db.getLink(self)
+        sql = "insert into userInfo(userName,gender,email,country,affiliation) values(%s,%s,%s,%s,%s)"  # 注意此处与前一种形式的不同
+        parm = (userName,gender, email, country,company)
+        cur.execute(sql, parm)
+        conn.commit()
+        conn.close()
         login = LoginScreen()
         widget.addWidget(login)
         widget.setCurrentIndex(widget.currentIndex() + 1)

@@ -287,7 +287,7 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    os.system('python ./loginapp.py')
+    # os.system('python ./loginapp.py')
     window = PyQtMainEntry()
     window.show()
     sys.exit(app.exec_())
