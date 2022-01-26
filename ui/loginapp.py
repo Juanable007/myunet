@@ -14,7 +14,7 @@ class WelcomeScreen(QDialog):
     def __init__(self):
         super(WelcomeScreen, self).__init__()
 
-        loadUi("/Users/bryan/Code/pycharm/myunet/ui/login/welcomescreen.ui", self)  # Loading ui.
+        loadUi("welcomescreen.ui", self)  # Loading ui.
 
         # Click functions when pressing buttons.
         self.login.clicked.connect(lambda: self.openLoginScreen())
@@ -42,7 +42,7 @@ class LoginScreen(QDialog):
     def __init__(self):
         super(LoginScreen, self).__init__()
 
-        loadUi("/Users/bryan/Code/pycharm/myunet/ui/login/login.ui", self)  # Loading ui.
+        loadUi("login.ui", self)  # Loading ui.
 
         # Click functions when pressing buttons.
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -85,7 +85,7 @@ class CreateAccScreen(QDialog):
     def __init__(self):
         super(CreateAccScreen, self).__init__()
 
-        loadUi("/Users/bryan/Code/pycharm/myunet/ui/login/createacc.ui", self)  # Loading ui.
+        loadUi("createacc.ui", self)  # Loading ui.
 
         # Click functions when pressing buttons.
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -124,7 +124,7 @@ class EmailScreen(QDialog):
     def __init__(self, email):
         self.email = email
         super(EmailScreen, self).__init__()
-        loadUi("/Users/bryan/Code/pycharm/myunet/ui/login/emailCode.ui", self)
+        loadUi("mailCode.ui", self)
         import smtplib
         from email.mime.multipart import MIMEMultipart
         from email.mime.text import MIMEText
@@ -171,7 +171,7 @@ class EmailScreen(QDialog):
 class BaverKacar(QDialog):
     def __init__(self):
         super(BaverKacar, self).__init__()
-        loadUi("/Users/bryan/Code/pycharm/myunet/ui/login/baverkacar.ui", self)
+        loadUi("baverkacar.ui", self)
         self.github.clicked.connect(lambda: webbrowser.open("https://github.com/baverkacar"))
         self.linkedin.clicked.connect(
             lambda: webbrowser.open("https://www.linkedin.com/in/baver-ka%C3%A7ar-b14460187/"))
@@ -181,7 +181,7 @@ class BaverKacar(QDialog):
 class FillProfileScreen(QDialog):
     def __init__(self, userText, emailText):
         super(FillProfileScreen, self).__init__()
-        loadUi("/Users/bryan/Code/pycharm/myunet/ui/login/fillprofile.ui", self)
+        loadUi("fillprofile.ui", self)
         self.userText = userText
         self.emailText = emailText
         self.username.setText(userText)

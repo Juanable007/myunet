@@ -7,7 +7,7 @@ import os
 
 class Unet(object):
     _defaults = {
-        "model_path"        : '/Users/bryan/Code/pycharm/myunet/logs/fullParm/ep050-loss0076.h5',
+        "model_path"        : './logs/fullParm/ep050-loss0076.h5',
         "model_image_size"  : (512, 512, 3),
         "num_classes"       : 2,
         "blend"             : False,
