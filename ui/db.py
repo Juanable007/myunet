@@ -8,6 +8,3 @@ def getLink():
                            database='ImageSegmentSystem')
     cur = conn.cursor()
     return cur, conn
-
-cur, conn = getLink()
-sql=""

@@ -3,7 +3,8 @@ import numpy as np
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-import  ui.model_1.pathConfig as config
+import ui.model_1.pathConfig as config
+
 
 class FileSystemTreeView(QTreeView, QDockWidget):
     def __init__(self, parent=None):

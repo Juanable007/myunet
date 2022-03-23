@@ -1,4 +1,5 @@
-from ui.model_1.custom.tableWidget import *
+from PyQt5.QtWidgets import QStackedWidget
+
 from ui.model_1.config import tables
 
 

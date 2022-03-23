@@ -1,5 +1,5 @@
-from custom.tableWidget import *
-from custom.listWidgetItems import *
+from ui.model_1.custom.tableWidget import *
+from ui.model_1.custom.listWidgetItems import *
 
 
 # Implemented functions

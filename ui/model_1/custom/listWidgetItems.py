@@ -1,14 +1,16 @@
+import cv2
 import numpy as np
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon, QColor
-from PyQt5.QtWidgets import QListWidgetItem, QPushButton
-from ui.model_1.flags  import *
+from PyQt5.QtWidgets import QListWidgetItem
+
+from ui.model_1.flags import *
 
 
 class MyItem(QListWidgetItem):
     def __init__(self, name=None, parent=None):
         super(MyItem, self).__init__(name, parent=parent)
-        self.setIcon(QIcon('icons/color.png'))
+        self.setIcon(QIcon('model_1/icons/color.png'))
         self.setSizeHint(QSize(60, 60))  # size
 
     def get_params(self):
@@ -39,7 +41,7 @@ class FilterItem(MyItem):
 
     def __init__(self, parent=None):
         super().__init__('平滑处理', parent=parent)
-        self.setIcon(QIcon('icons/平滑处理.png'))
+        self.setIcon(QIcon('model_1/icons/平滑处理.png'))
         self._ksize = 3
         self._kind = MEAN_FILTER
         self._sigmax = 0
@@ -57,7 +59,7 @@ class FilterItem(MyItem):
 class MorphItem(MyItem):
     def __init__(self, parent=None):
         super().__init__(' 形态学 ', parent=parent)
-        self.setIcon(QIcon('icons/形态学.png'))
+        self.setIcon(QIcon('model_1/icons/形态学.png'))
 
         self._ksize = 3
         self._op = ERODE_MORPH_OP
@@ -75,7 +77,7 @@ class GradItem(MyItem):
 
     def __init__(self, parent=None):
         super().__init__('图像梯度', parent=parent)
-        self.setIcon(QIcon('icons/图像梯度.png'))
+        self.setIcon(QIcon('model_1/icons/图像梯度.png'))
 
         self._kind = SOBEL_GRAD
         self._ksize = 3
@@ -85,12 +87,12 @@ class GradItem(MyItem):
     def __call__(self, img):
         if self._dx == 0 and self._dy == 0 and self._kind != LAPLACIAN_GRAD:
             self.setBackground(QColor(255, 0, 0))
-            self.setIcon(QIcon('icons/图像梯度.png'))
+            self.setIcon(QIcon('model_1/icons/图像梯度.png'))
 
             self.setText('图像梯度 （无效: dx与dy不同时为0）')
         else:
             self.setBackground(QColor(200, 200, 200))
-            self.setIcon(QIcon('icons/图像梯度.png'))
+            self.setIcon(QIcon('model_1/icons/图像梯度.png'))
             self.setText('图像梯度')
             if self._kind == SOBEL_GRAD:
                 img = cv2.Sobel(img, -1, self._dx, self._dy, self._ksize)
@@ -104,7 +106,7 @@ class GradItem(MyItem):
 class ThresholdItem(MyItem):
     def __init__(self, parent=None):
         super().__init__('阈值处理', parent=parent)
-        self.setIcon(QIcon('icons/阈值分割.png'))
+        self.setIcon(QIcon('model_1/icons/阈值分割.png'))
 
         self._thresh = 127
         self._maxval = 255
@@ -121,7 +123,7 @@ class ThresholdItem(MyItem):
 class EdgeItem(MyItem):
     def __init__(self, parent=None):
         super(EdgeItem, self).__init__('边缘检测', parent=parent)
-        self.setIcon(QIcon('icons/边缘检测.png'))
+        self.setIcon(QIcon('model_1/icons/边缘检测.png'))
 
         self._thresh1 = 20
         self._thresh2 = 100
@@ -135,7 +137,7 @@ class EdgeItem(MyItem):
 class ContourItem(MyItem):
     def __init__(self, parent=None):
         super(ContourItem, self).__init__('轮廓检测', parent=parent)
-        self.setIcon(QIcon('icons/轮廓检测.png'))
+        self.setIcon(QIcon('model_1/icons/轮廓检测.png'))
 
         self._mode = TREE_CONTOUR_MODE
         self._method = SIMPLE_CONTOUR_METHOD
@@ -169,7 +171,7 @@ class ContourItem(MyItem):
 class EqualizeItem(MyItem):
     def __init__(self, parent=None):
         super().__init__(' 均衡化 ', parent=parent)
-        self.setIcon(QIcon('icons/均衡化.png'))
+        self.setIcon(QIcon('model_1/icons/均衡化.png'))
 
         self._blue = True
         self._green = True
@@ -189,7 +191,7 @@ class EqualizeItem(MyItem):
 class HoughLineItem(MyItem):
     def __init__(self, parent=None):
         super(HoughLineItem, self).__init__('直线检测', parent=parent)
-        self.setIcon(QIcon('icons/直线检测.png'))
+        self.setIcon(QIcon('model_1/icons/直线检测.png'))
 
         self._rho = 1
         self._theta = np.pi / 180
@@ -212,7 +214,7 @@ class HoughLineItem(MyItem):
 class LightItem(MyItem):
     def __init__(self, parent=None):
         super(LightItem, self).__init__('亮度调节', parent=parent)
-        self.setIcon(QIcon('icons/亮度调节.png'))
+        self.setIcon(QIcon('model_1/icons/亮度调节.png'))
 
         self._alpha = 1
         self._beta = 0
@@ -226,7 +228,7 @@ class LightItem(MyItem):
 class GammaItem(MyItem):
     def __init__(self, parent=None):
         super(GammaItem, self).__init__('伽马校正', parent=parent)
-        self.setIcon(QIcon('icons/伽马校正.png'))
+        self.setIcon(QIcon('model_1/icons/伽马校正.png'))
 
         self._gamma = 1
 

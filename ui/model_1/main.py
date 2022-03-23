@@ -1,16 +1,18 @@
-import sys
+import traceback
+
 import cv2
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import matplotlib.pyplot as plt
 
-from custom.stackedWidget import StackedWidget
+from ui.model_1.custom.stackedWidget import StackedWidget
+from ui.model_1.custom.listWidgets import FuncListWidget, UsedListWidget
+from ui.model_1.custom.graphicsView import GraphicsView
+import ui.model_1.pathConfig as config
+import ui.db as db
 from ui.model_1.custom.treeView import FileSystemTreeView
-from custom.listWidgets import FuncListWidget, UsedListWidget
-from custom.graphicsView import GraphicsView
-import  ui.model_1.pathConfig as config
-import  ui.db as db
+
 
 class MyApp(QMainWindow):
 
@@ -18,9 +20,9 @@ class MyApp(QMainWindow):
         super(MyApp, self).__init__()
 
         self.tool_bar = self.addToolBar('工具栏')
-        self.action_right_rotate = QAction(QIcon("icons/右旋转.png"), "向右旋转90", self)
-        self.action_left_rotate = QAction(QIcon("icons/左旋转.png"), "向左旋转90°", self)
-        self.action_histogram = QAction(QIcon("icons/直方图.png"), "直方图", self)
+        self.action_right_rotate = QAction(QIcon("model_1/icons/右旋转.png"), "向右旋转90", self)
+        self.action_left_rotate = QAction(QIcon("model_1/icons/左旋转.png"), "向左旋转90°", self)
+        self.action_histogram = QAction(QIcon("model_1/icons/直方图.png"), "直方图", self)
         self.action_right_rotate.triggered.connect(self.right_rotate)
         self.action_left_rotate.triggered.connect(self.left_rotate)
         self.action_histogram.triggered.connect(self.histogram)
@@ -74,7 +76,7 @@ class MyApp(QMainWindow):
             "QPushButton:hover{color:red}"  # 光标移动到上面后的前景色
             "QPushButton{border-radius:6px}"  # 圆角半径
             "QPushButton:pressed{background-color:rgb(180,180,180);border: None;}"  # 按下时的样式
-            "QPushButton{border-image: url(./icons/baocun.png)}"
+            "QPushButton{border-image: url(./model_1/icons/baocun.png)}"
         )
 
         self.saveButton.clicked.connect(self.saveImg)
@@ -94,7 +96,7 @@ class MyApp(QMainWindow):
 
 
         self.setWindowTitle('图像预处理模块')
-        self.setWindowIcon(QIcon('icons/main.png'))
+        self.setWindowIcon(QIcon('model_1/icons/main.png'))
         self.src_img = None
         self.cur_img = None
 
@@ -119,7 +121,7 @@ class MyApp(QMainWindow):
         img = self.src_img.copy()
         for i in range(self.useListWidget.count()):
             img = self.useListWidget.item(i)(img)
-        cv2.imwrite('../temp/preProcess_image.png', img)
+        cv2.imwrite('temp/preProcess_image.png', img)
         return img
 
     def right_rotate(self):
@@ -145,7 +147,7 @@ class MyApp(QMainWindow):
             path = config.get_path()
             name = path.split("/")[-1]
             groupId=self.groupEdit.text()
-            fp = open("../temp/preProcess_image.png", 'rb')
+            fp = open("temp/preProcess_image.png", 'rb')
             img = fp.read()
             fp.close()
             sql = "insert into input(path,imgName,image,groupId) values(%s,%s,%s,%s)"  # 注意此处与前一种形式的不同
@@ -155,6 +157,7 @@ class MyApp(QMainWindow):
             conn.commit()
             self.messageDialog()
         except:
+            traceback.print_exc()
             self.warningDialog()
         finally:
             conn.close()
@@ -169,12 +172,12 @@ class MyApp(QMainWindow):
         # 核心功能代码就两行，可以加到需要的地方
         msg_box = QMessageBox(QMessageBox.Warning, '警告', '保存异常')
         msg_box.exec_()
-
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    # app.setStyleSheet(open('./custom/styleSheet.qss', encoding='utf-8').read())
-    window = MyApp()
-    window.show()
-    sys.exit(app.exec_())
+#
+#
+#
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     # app.setStyleSheet(open('./custom/styleSheet.qss', encoding='utf-8').read())
+#     window = MyApp()
+#     window.show()
+#     sys.exit(app.exec_())

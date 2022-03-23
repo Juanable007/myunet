@@ -1,22 +1,12 @@
-import os
 import sys
-import traceback
-import requests
-
-from PyQt5 import QtCore, QtGui, QtWidgets
+sys.path.append("/Users/bryan/Code/pycharm/myunet/ui/model_1/custom")
+from PyQt5 import QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QFileDialog, QMainWindow, QApplication, QMessageBox, QWidget, QVBoxLayout, QLabel, \
-    QCheckBox, QGridLayout, QScrollArea, QPushButton, QDialog, QScrollBar, QHBoxLayout
-from PIL import ImageQt, Image
-from unet import Unet
+from PyQt5.QtWidgets import QMainWindow
+from PIL import ImageQt
 from FrontPage import Ui_MainWindow
-from imageshow import  Ui_MainWindow as imageshowUi
-import pymysql
-import cv2
-import time
-import Compose
-
+from ui.model_1 import main as model_1
 class FrontMainEntry(QMainWindow, Ui_MainWindow):
     def __init__(self):
 
@@ -83,15 +73,17 @@ class FrontMainEntry(QMainWindow, Ui_MainWindow):
         # self.btn.resize(self.btn.sizeHint())
         # self.btn.setShortcut('L')
         # self.btn.enterEvent()
-        # self.btn.clicked.connect(self.last)
+        # self.btn.clicked.connect(self.model_1)
     # def enterEvent(self):
-    #     print("鼠标悬停")
+    #     print("鼠标悬停")'
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = FrontMainEntry()
 
     window.show()
+    WinModel_1=model_1.MyApp()
     # newWin = NewWindow()
-    # window.pushButton_2.clicked.connect(newWin.show)
+    window.btn.clicked.connect(WinModel_1.show)
     sys.exit(app.exec_())

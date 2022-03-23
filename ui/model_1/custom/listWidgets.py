@@ -2,7 +2,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-from ui.model_1.config  import items
+from ui.model_1.config import items
 
 
 class MyListWidget(QListWidget):
