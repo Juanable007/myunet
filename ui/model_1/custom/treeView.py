@@ -3,7 +3,7 @@ import numpy as np
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-
+import  ui.model_1.pathConfig as config
 
 class FileSystemTreeView(QTreeView, QDockWidget):
     def __init__(self, parent=None):
@@ -27,8 +27,12 @@ class FileSystemTreeView(QTreeView, QDockWidget):
         self.setMinimumWidth(200)
 
     def select_image(self, file_index):
+
         file_name = self.fileSystemModel.filePath(file_index)
+        print("File_name"+file_name)
         if file_name.endswith(('.jpg', '.png', '.bmp')):
+            config.set_path(file_name)
             src_img = cv2.imdecode(np.fromfile(file_name, dtype=np.uint8), -1)
             self.mainwindow.change_image(src_img)
+
 

@@ -1,6 +1,6 @@
 import pymysql
 
-def getLink(self):
+def getLink():
     print("获取数据库链接")
     conn = pymysql.connect(host='bj-cdb-1in2y42y.sql.tencentcdb.com', port=60186,
                            user='root',
@@ -8,3 +8,6 @@ def getLink(self):
                            database='ImageSegmentSystem')
     cur = conn.cursor()
     return cur, conn
+
+cur, conn = getLink()
+sql=""
