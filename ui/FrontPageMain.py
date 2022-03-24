@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QMainWindow
 from PIL import ImageQt
 from FrontPage import Ui_MainWindow
 from ui.model_1 import main as model_1
+from ui.model_2 import ImageSegMain as model_2
 class FrontMainEntry(QMainWindow, Ui_MainWindow):
     def __init__(self):
 
@@ -73,17 +74,26 @@ class FrontMainEntry(QMainWindow, Ui_MainWindow):
         # self.btn.resize(self.btn.sizeHint())
         # self.btn.setShortcut('L')
         # self.btn.enterEvent()
-        # self.btn.clicked.connect(self.model_1)
+        self.btn.clicked.connect(self.btnClicked)
+        self.btn2.clicked.connect(self.btn2Clicked)
     # def enterEvent(self):
     #     print("鼠标悬停")'
+    def btnClicked(self):
+        print("模块一 :预处理模块")
+        self.WinModel_1=model_1.MyApp()
+        self.WinModel_1.show()
 
+    def btn2Clicked(self):
+        print("模块二 :图像分割模块")
+        self.WinModel_2 = model_2.ImageSegment()
+        self.WinModel_2.show()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = FrontMainEntry()
 
     window.show()
-    WinModel_1=model_1.MyApp()
-    # newWin = NewWindow()
-    window.btn.clicked.connect(WinModel_1.show)
+    # WinModel_1=model_1.MyApp()
+    # # newWin = NewWindow()
+    # window.btn.clicked.connect(WinModel_1.show)
     sys.exit(app.exec_())

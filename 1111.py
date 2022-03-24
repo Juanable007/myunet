@@ -26,7 +26,7 @@ def selectImage(id):
     return image
 
 image = selectImage(65)
-fout= open("ui/temp/selected.png", "wb")
+fout= open("ui/model_2/temp/selected.png", "wb")
 fout.write(image[0][1])
 
 r.set("65",image)

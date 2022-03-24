@@ -113,7 +113,7 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
                 # openPath = ''.join(path[0])
                 # 查询图片
                 image= self.selectImage(id)
-                fout= open("temp/selected.png", "wb")
+                fout= open("model_2/temp/selected.png", "wb")
                 fout.write(image[0][1])
                 self.selectedImg.setPixmap(
                     ImageQt.toqpixmap("temp/selected.png").scaled(self.selectedImg.size(), Qt.KeepAspectRatio,
@@ -153,9 +153,9 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
         print("分割拼接方法")
         #  获取要分割图像的路径
         id = self.comboBox.currentData()
-        inputPath = 'temp/input/'
-        outPath = 'temp/output/'
-        joinOutPath = 'temp/joinOut/'
+        inputPath = './temp/input/'
+        outPath = './temp/output/'
+        joinOutPath = './temp/joinOut/'
         #输出文件名称
         outSavePathName = self.comboBox.currentText()
         path = self.selectPath(id)

@@ -1,7 +1,7 @@
 
 import cv2
 
-img = cv2.imread("ui/temp/joinOut/锐化.png", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("ui/model_2/temp/joinOut/锐化.png", cv2.IMREAD_GRAYSCALE)
 
 row = img.shape[0]
 clo = img.shape[1]
