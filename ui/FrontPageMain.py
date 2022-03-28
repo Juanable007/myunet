@@ -7,7 +7,7 @@ from PIL import ImageQt
 from FrontPage import Ui_MainWindow
 from ui.model_1 import main as model_1
 from ui.model_2 import ImageSegMain as model_2
-
+from ui.model_4 import UserMain as model_4
 from  ui.model_5 import UserMain as model_5
 class FrontMainEntry(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -77,6 +77,7 @@ class FrontMainEntry(QMainWindow, Ui_MainWindow):
         # self.btn.enterEvent()
         self.btn.clicked.connect(self.btnClicked)
         self.btn2.clicked.connect(self.btn2Clicked)
+        self.btn4.clicked.connect(self.btn4Clicked)
         self.btn5.clicked.connect(self.btn5Clicked)
     # def enterEvent(self):
     #     print("鼠标悬停")'
@@ -89,6 +90,12 @@ class FrontMainEntry(QMainWindow, Ui_MainWindow):
         print("模块二 :图像分割模块")
         self.WinModel_2 = model_2.ImageSegment()
         self.WinModel_2.show()
+
+
+    def btn4Clicked(self):
+        print("资源管理模块")
+        self.WinModel_4=model_4.UserApp()
+        self.WinModel_4.show()
 
     def btn5Clicked(self):
         print("用户管理模块")

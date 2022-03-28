@@ -473,10 +473,3 @@ class UserApp(QMainWindow):
         # 否则返回False
         return False
 
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-
-    pic = UserApp()
-    pic.show()
-    sys.exit(app.exec_())
