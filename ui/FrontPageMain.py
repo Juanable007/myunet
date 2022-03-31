@@ -94,17 +94,17 @@ class FrontMainEntry(QMainWindow, Ui_MainWindow):
         self.WinModel_2.show()
 
     def btn3Clicked(self):
-        print("模块二 :图像分割模块")
+        print("模块三 :资源分析模块")
         self.WinModel_3 = model_3.ImageSegment()
         self.WinModel_3.show()
 
     def btn4Clicked(self):
-        print("资源管理模块")
+        print("模块四:资源管理模块")
         self.WinModel_4=model_4.UserApp()
         self.WinModel_4.show()
 
     def btn5Clicked(self):
-        print("用户管理模块")
+        print("模块五:用户管理模块")
         self.WinModel_5=model_5.UserApp()
         self.WinModel_5.show()
 
