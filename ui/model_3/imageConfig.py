@@ -3,6 +3,7 @@
 class ImageConfig:
     Id=-1
     Path=""
+    SegPath=""
     Name=""
     GroupId=1
     Num=0
@@ -17,6 +18,11 @@ def set_path(path):
   ImageConfig.Path = path
 def get_path():
   return ImageConfig.Path
+
+def set_segPath(path):
+  ImageConfig.SegPath = path
+def get_segPath():
+  return ImageConfig.SegPath
 
 # 对于每个全局变量，都需要定义get_value和set_value接口
 def set_name(name):
