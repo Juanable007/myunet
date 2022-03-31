@@ -43,7 +43,7 @@ class ImageSegment(QWidget):
             "QPushButton:hover{color:red}"  # 光标移动到上面后的前景色
             "QPushButton{border-radius:6px}"  # 圆角半径
             "QPushButton:pressed{background-color:rgb(180,180,180);border: None;}"  # 按下时的样式
-            "QPushButton{border-image: url(./icon/bingzhuangtu.png)}"
+            "QPushButton{border-image: url(model_3/icon/bingzhuangtu.png)}"
         )
         self.analysisOneBtn.clicked.connect(self.analysisOne)
         self.analysisOneBtn.setGeometry(650, 30, 55, 50)
@@ -65,7 +65,7 @@ class ImageSegment(QWidget):
             "QPushButton:hover{color:red}"  # 光标移动到上面后的前景色
             "QPushButton{border-radius:6px}"  # 圆角半径
             "QPushButton:pressed{background-color:rgb(180,180,180);border: None;}"  # 按下时的样式
-            "QPushButton{border-image: url(./icon/fenzu.png)}"
+            "QPushButton{border-image: url(model_3/icon/fenzu.png)}"
         )
         self.analysisGroupBtn.clicked.connect(self.analysisByGroup)
 
@@ -90,7 +90,7 @@ class ImageSegment(QWidget):
                                                           Qt.SmoothTransformation))
 
     def ui(self):
-        self.setFixedSize(1050,700)
+        # self.setFixedSize(1200,800)
         layout = QGridLayout()
 
         self.setLayout(layout)
@@ -259,10 +259,10 @@ class ImageSegment(QWidget):
 
 
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-
-    pic = ImageSegment()
-    pic.show()
-    sys.exit(app.exec_())
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#
+#     pic = ImageSegment()
+#     pic.show()
+#     sys.exit(app.exec_())
 

@@ -10,6 +10,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QFileDialog
 from PyQt5.QtGui import QPixmap
 import db
+from FrontPageMain import FrontMainEntry
 # First Screen -Welcome Screen- class. Inheriting from QDialog class.
 class WelcomeScreen(QDialog):
     def __init__(self):
@@ -47,7 +48,7 @@ class LoginScreen(QDialog):
 
         # Click functions when pressing buttons.
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.login.clicked.connect(lambda: self.loginButtonClicked())
+        self.login.clicked.connect(self.loginButtonClicked)
 
     def loginButtonClicked(self):
         user = self.emailfield.text()
@@ -58,7 +59,7 @@ class LoginScreen(QDialog):
 
         # This statement connects database and queries whether the user exists.
         else:
-            cur, conn = db.getLink(self)
+            cur, conn = db.getLink()
             # conn = sqlite3.connect("login_app.db")
             # cur = conn.cursor()
             query = 'SELECT password FROM user WHERE userName =\'' + user + "\'"
@@ -165,24 +166,17 @@ class EmailScreen(QDialog):
         text = self.emailfield.text()
         if text == str(randomCode):
             self.error.setText("Logged in Successfully")
-            os.system("python MainEntry.py")
-            # baverkacar = BaverKacar()
-            # widget.addWidget()
-            # widget.addWidget(baverkacar)
-            # widget.setCurrentIndex(widget.currentIndex() + 1)
+            print("_=========================")
+            # app = QtWidgets.QApplication(sys.argv)
+            # window = FrontMainEntry()
+            # window.show()
+            # sys.exit(app.exec_())
+            # os.system("python FrontPageMain.py")
+            windows= FrontMainEntry()
+            widget.addWidget(windows)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
         else:
             self.error.setText("Code is wrong")
-
-
-# Final information screen class. Inheriting from QDialog class.
-class BaverKacar(QDialog):
-    def __init__(self):
-        super(BaverKacar, self).__init__()
-        loadUi("baverkacar.ui", self)
-        self.github.clicked.connect(lambda: webbrowser.open("https://github.com/baverkacar"))
-        self.linkedin.clicked.connect(
-            lambda: webbrowser.open("https://www.linkedin.com/in/baver-ka%C3%A7ar-b14460187/"))
-
 
 # Filling Profile screen class. Inheriting from QDialog class.
 class FillProfileScreen(QDialog):
