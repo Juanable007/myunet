@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1185</width>
-    <height>1133</height>
+    <height>997</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="bgwidget" native="true">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>-10</x>
      <y>0</y>
      <width>1201</width>
      <height>801</height>
@@ -29,9 +29,9 @@ background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379,
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>120</y>
-      <width>251</width>
+      <x>390</x>
+      <y>190</y>
+      <width>461</width>
       <height>61</height>
      </rect>
     </property>
@@ -39,23 +39,7 @@ background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379,
      <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;; color:rgb(255, 255, 255)</string>
     </property>
     <property name="text">
-     <string>Welcome</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>240</y>
-      <width>391</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;color:rgb(255, 255, 255)</string>
-    </property>
-    <property name="text">
-     <string>Sign in or create a new account</string>
+     <string>欢迎使用岩石薄片分割系统</string>
     </property>
    </widget>
    <widget class="QPushButton" name="login">
@@ -73,7 +57,7 @@ background-color: rgb(170, 255, 255);
 font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
-     <string>Log in</string>
+     <string>登录</string>
     </property>
    </widget>
    <widget class="QPushButton" name="create">
@@ -91,7 +75,7 @@ background-color: rgb(170, 255, 255);
 font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
-     <string>Create a new account</string>
+     <string>注册</string>
     </property>
    </widget>
   </widget>

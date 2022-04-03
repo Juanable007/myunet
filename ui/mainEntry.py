@@ -1,14 +1,17 @@
 import os
 import sys
 import traceback
+import requests
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QFileDialog, QMainWindow, QApplication, QMessageBox
+from PyQt5.QtWidgets import QFileDialog, QMainWindow, QApplication, QMessageBox, QWidget, QVBoxLayout, QLabel, \
+    QCheckBox, QGridLayout, QScrollArea, QPushButton, QDialog, QScrollBar, QHBoxLayout
 from PIL import ImageQt, Image
 from unet import Unet
 from MainWindows import Ui_MainWindow
+from imageshow import  Ui_MainWindow as imageshowUi
 import pymysql
 import cv2
 import time
@@ -21,7 +24,12 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.CutFlag = False
         self.SegmentFlag = False
-      # sql = "SELECT * FROM user WHERE id=1;"
+        # self.pushButton_2.setStyleSheet("QPushButton{border-image: url(shezhi.png)}")
+        self.pushButton_2.setStyleSheet("QPushButton{border-image: url(shezhi.png)}")
+
+        self.pushButton_2.clicked.connect(self.btnClicked)
+
+    # sql = "SELECT * FROM user WHERE id=1;"
         # cur.execute(sql)
         # # 获取查询到的数据，是以字典的形式存储的，所以读取需要使用data[i][j]下标定位
         # data = cur.fetchall()
@@ -105,7 +113,7 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
                 # openPath = ''.join(path[0])
                 # 查询图片
                 image= self.selectImage(id)
-                fout= open("temp/selected.png", "wb")
+                fout= open("./temp/selected.png", "wb")
                 fout.write(image[0][1])
                 self.selectedImg.setPixmap(
                     ImageQt.toqpixmap("temp/selected.png").scaled(self.selectedImg.size(), Qt.KeepAspectRatio,
@@ -145,9 +153,9 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
         print("分割拼接方法")
         #  获取要分割图像的路径
         id = self.comboBox.currentData()
-        inputPath = 'temp/input/'
-        outPath = 'temp/output/'
-        joinOutPath = 'temp/joinOut/'
+        inputPath = './temp/input/'
+        outPath = './temp/output/'
+        joinOutPath = './temp/joinOut/'
         #输出文件名称
         outSavePathName = self.comboBox.currentText()
         path = self.selectPath(id)
@@ -283,11 +291,76 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
         unet = Unet()
         img = unet.detect_image(image)
         return img
+    def btnClicked(self):
+        print(123123123123)
+        self.chile_Win=NewWindow()
+        self.chile_Win.show()
+        self.chile_Win.exec_()
 
+
+class NewWindow(QDialog,imageshowUi):
+    def __init__(self):
+        super().__init__()
+        # self.initUI()
+        super(NewWindow, self).__init__()
+        self.resize(800, 600)
+        self.label = QLabel(self)  # 1
+        self.label.setPixmap(QPixmap('img(1).png'))
+        self.label.setScaledContents(True)
+
+        self.scroll_area = QScrollArea(self)  # 2
+        self.scroll_area.setWidget(self.label)
+        self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        self.scrollbar = QScrollBar(Qt.Horizontal, self)  # 3
+        self.scrollbar.setMaximum(self.scroll_area.horizontalScrollBar().maximum())
+
+        self.bigger_btn = QPushButton('Zoom in', self)  # 4
+        self.smaller_btn = QPushButton('Zoom out', self)
+
+        self.bigger_btn.clicked.connect(self.bigger_func)  # 5
+        self.smaller_btn.clicked.connect(self.smaller_func)
+        self.scrollbar.valueChanged.connect(self.sync_func)
+
+        self.h_layout = QHBoxLayout()
+        self.h_layout.addWidget(self.bigger_btn)
+        self.h_layout.addWidget(self.smaller_btn)
+
+        self.v_layout = QVBoxLayout()
+        self.v_layout.addWidget(self.scroll_area)
+        self.v_layout.addWidget(self.scrollbar)
+        self.v_layout.addLayout(self.h_layout)
+        self.setLayout(self.v_layout)
+
+    def bigger_func(self):
+        self.label.resize(self.label.width() * 1.2, self.label.height() * 1.2)
+        self.scrollbar.setMaximum(self.scroll_area.horizontalScrollBar().maximum())
+
+    def smaller_func(self):
+        self.label.resize(self.label.width() * 0.8, self.label.height() * 0.8)
+        self.scrollbar.setMaximum(self.scroll_area.horizontalScrollBar().maximum())
+
+    def sync_func(self):
+        self.scroll_area.horizontalScrollBar().setValue(self.scrollbar.value())
+
+    # def initUI(self):
+    #     # 设置窗口标题和大小
+    #     self.setWindowTitle('TestWindow')
+    #     self.resize(400, 300)
+    #     for i in range(5):
+    #         self.btn = QPushButton('打开新窗口', self)
+    #     layout = QVBoxLayout()
+    #     layout.addWidget(self.btn)
+    #     self.setLayout(layout)
+    #
+    #     self.show()
 
 if __name__ == "__main__":
+
     app = QtWidgets.QApplication(sys.argv)
-    # os.system('python ./loginapp.py')
     window = PyQtMainEntry()
+
     window.show()
+    # newWin = NewWindow()
+    # window.pushButton_2.clicked.connect(newWin.show)
     sys.exit(app.exec_())

@@ -20,13 +20,13 @@ np.set_printoptions(threshold=np.inf)
 # arr=np.array(img)
 # print(arr)
 
-maskdir='newdata/binaryMasks'
+maskdir='123/iShot2022-03-04 19_18_27_json'
 maskfiles =glob.glob(os.path.join(maskdir, "*.png"))
 for maskfile in maskfiles:
     img = cv2.imread(maskfile, cv2.IMREAD_GRAYSCALE)
-    imgName=maskfile.split("\\")[1].split('.')[0]
+    imgName=maskfile.split("/")[1].split('.')[0]
     # print(imgName)
     ret2, th2 = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     th2
     imgName=imgName+".bmp"
-    cv2.imwrite("newdata/testBinary/"+imgName, th2)
+    cv2.imwrite("123/iShot2022-03-04 19_18_27_json/test/"+imgName, th2)

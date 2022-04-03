@@ -17,7 +17,7 @@ def flip(root_path,img_name):   #翻转图像
     filp_img = img.transpose(Image.FLIP_LEFT_RIGHT)
     # filp_img.save(os.path.join(root_path,img_name.split('.')[0] + '_flip.jpg'))
     return filp_img
-# img = Image.open('img/0_json/img.png')
+# img = Image.open('img/0_json/pislab.png')
 # label = Image.open('img/0_json/label.png')
 # flip_img = ImageChops.offset(img,35)
 # flip_label = ImageChops.offset(label,35)
@@ -99,7 +99,7 @@ def scale_img(root_path,img_name):
 
 
 
-# img = cv2.imread('img/0_json/img.png')
+# img = cv2.imread('img/0_json/pislab.png')
 # label = cv2.imread('img/0_json/label.png')
 # height,width = img.shape[:2]
 # size = (int(width*0.7),int(height*0.7))
