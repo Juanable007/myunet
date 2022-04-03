@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # 是否需要早停，当val_loss一直不下降的时候意味着模型基本训练完毕，可以停止
     early_stopping = EarlyStopping(monitor='loss', min_delta=0, patience=12, verbose=1)
     # tensorboard
-    tensorboard = TensorBoard(log_dir=log_dir)
+    tensorboard = TensorBoard(log_dir=log_dir,histogram_freq=0,write_grads=True)
 
     freeze_layers = 17
 
@@ -91,6 +91,6 @@ if __name__ == "__main__":
         # 开始训练
         model.fit_generator(gen,
                 steps_per_epoch=max(1, len(train_lines)//Batch_size),
-                epochs=200,
-                initial_epoch=100,
+                epochs=0,
+                initial_epoch=50,
                 callbacks=[checkpoint_period, reduce_lr,tensorboard])
