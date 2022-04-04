@@ -147,7 +147,7 @@ class MyApp(QMainWindow):
             path = config.get_path()
             name = path.split("/")[-1]
             groupId=self.groupEdit.text()
-            fp = open("temp/preProcess_image.png", 'rb')
+            fp = open("model_3/temp/preProcess_image.png", 'rb')
             img = fp.read()
             fp.close()
             sql = "insert into input(path,imgName,image,groupId) values(%s,%s,%s,%s)"  # 注意此处与前一种形式的不同

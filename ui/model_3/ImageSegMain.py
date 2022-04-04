@@ -90,7 +90,7 @@ class ImageSegment(QWidget):
                                                           Qt.SmoothTransformation))
 
     def ui(self):
-        # self.setFixedSize(1200,800)
+        self.setFixedSize(1200,800)
         layout = QGridLayout()
 
         self.setLayout(layout)

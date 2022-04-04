@@ -10,6 +10,8 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QFileDialog
 from PyQt5.QtGui import QPixmap
 import db
+import time
+import  datetime
 from FrontPageMain import FrontMainEntry
 # First Screen -Welcome Screen- class. Inheriting from QDialog class.
 class WelcomeScreen(QDialog):
@@ -62,21 +64,43 @@ class LoginScreen(QDialog):
             cur, conn = db.getLink()
             # conn = sqlite3.connect("login_app.db")
             # cur = conn.cursor()
-            query = 'SELECT password FROM user WHERE userName =\'' + user + "\'"
+            query = 'SELECT password,lastLoginTime FROM user WHERE userName =\'' + user + "\'"
             email = 'SELECT email FROM user WHERE userName =\'' + user + "\'"
+
             cur.execute(query)
             result_pass = cur.fetchone()
             result_pass_password = result_pass[0]
+            lastLoginTime=result_pass[1]
+            today= datetime.datetime.now() # 2017-06-21 02:18:17
+            lastLoginTime=datetime.datetime.strptime(lastLoginTime, "%Y-%m-%d %H:%M:%S")
+            print((today - lastLoginTime).days)
             if result_pass_password == password:
-                cur.execute(email)
-                result_email = cur.fetchone()
-                result_email_main = result_email[0]
-                self.openEmailCode(result_email_main)
-                self.error.setText("")
+                # 密码验证通过,判断如果超过七天,则重新验证邮箱,否则直接登陆
+                if ((today - lastLoginTime).days < 7):
+
+                    windows = FrontMainEntry()
+                    widget.addWidget(windows)
+                    widget.setCurrentIndex(widget.currentIndex() + 1)
+                else:
+                    cur.execute(email)
+                    result_email = cur.fetchone()
+                    result_email_main = result_email[0]
+                    self.openEmailCode(result_email_main)
+                    self.error.setText("")
+                # today= # strftime 日期转字符串，Y年、m月、d日、H时、M分、S秒
+                date = str(today).split(".")[0]
+                sql= 'update user  set lastLoginTime=%s WHERE userName =%s'
+                args=(date,user)
+                # sql= 'update  user set lastLoginTime={} where userName ={}'.format(date,user) #注意此处与前一种形式的不同
+                print(sql)
+                cur.execute(sql,args)
+                conn.commit()
+
             else:
                 self.error.setText("Invalid username or password")
 
     # This method opens email code screen
+
     def openEmailCode(self, email):
         emailScreen = EmailScreen(email)
         widget.addWidget(emailScreen)

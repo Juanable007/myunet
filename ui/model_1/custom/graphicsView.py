@@ -30,7 +30,7 @@ class GraphicsView(QGraphicsView):
         menu.exec(QCursor.pos())
 
     def save_current(self):
-        file_name = QFileDialog.getSaveFileName(self, '另存为', './', 'Image files(*.jpg *.gif *.png)')[0]
+        file_name = QFileDialog.getSaveFileName(self, '另存为', './', 'Image files(*.jpg *.gif *.png,*.tif)')[0]
         print(file_name)
         if file_name:
             self._photo.pixmap().save(file_name)
