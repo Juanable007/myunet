@@ -27,7 +27,7 @@ class Tools():
     def getData():
 
         cur,conn  = db.getLink()
-        cur.execute('select * from user')
+        cur.execute('select id, userName,passWord,email,role,remark,lastLoginTime,create_time,update_time from user')
         data = cur.fetchall()
 
         conn.close()

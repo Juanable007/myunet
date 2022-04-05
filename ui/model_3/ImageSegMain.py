@@ -141,9 +141,9 @@ class ImageSegment(QWidget):
         self.InputLabel.setPixmap(ImageQt.toqpixmap(data[0][0]).scaled(self.InputLabel.size(), Qt.KeepAspectRatio,
                                                                        Qt.SmoothTransformation))
     def analysisByGroup(self):
-        print("分组分析")
         groupId= config.get_groupId()
-        sql="select parm1,imgName from input where groupId={}".format(groupId)
+        print("分组分析 组别"+ str(groupId))
+        sql="select parm1,imgName from input where groupId={} order by imgName".format(groupId)
         cur,conn = db.getLink()
         cur.execute(sql)
         data= cur.fetchall()
@@ -151,20 +151,20 @@ class ImageSegment(QWidget):
         x=[]
         for i in range(len(data)):
             y.append(float(data[i][0]))
-            x.append(data[i][1])
+            x.append(str(i))
         print(y)
         print(x)
 
         # 创建画布
         plt.figure()
-        plt.ylim(0.3, 0.7)
-        plt.plot(x, y, marker='o', color='r', label='y1-data')
+        plt.ylim(0.2, 0.7)
+        plt.plot(x, y, marker='o', color='b', label='y1-data')
         # my_y_ticks = np.arange(0, 1, 0.1)
         # plt.yticks(my_y_ticks)
         # 横坐标名称
-        plt.xlabel('imageName')
+        plt.xlabel('图像序号')
         # 纵坐标名称
-        plt.ylabel('孔隙度/%')
+        plt.ylabel('孔隙度')
         # 保存图片到本地
         plt.savefig('pci.png')
         self.showDialog()
