@@ -134,10 +134,14 @@ class CreateAccScreen(QDialog):
             self.error.setText("Passwords do not match.")
         else:
             # conn = sqlite3.connect("login_app.db")
-            cur,conn= db.getLink(self)
+            cur,conn= db.getLink()
             # cur = conn.cursor()
-            sql = "insert into user(userName,passWord,email) values(%s,%s,%s)"  # 注意此处与前一种形式的不同
-            parm=(user,password,email)
+            today= datetime.datetime.now() # 2017-06-21 02:18:17
+
+            date = str(today).split(".")[0]
+            sql = "insert into user(userName,passWord,email,lastLoginTime) values(%s,%s,%s,%s)"  # 注意此处与前一种形式的不同
+            parm=(user,password,email,date)
+
             cur.execute(sql,parm)
 
             conn.commit()
@@ -221,7 +225,7 @@ class FillProfileScreen(QDialog):
         company = self.company.text()
         country = self.country.text()
         gender = self.gender.text()
-        cur, conn = db.getLink(self)
+        cur, conn = db.getLink()
         sql = "insert into userInfo(userName,gender,email,country,affiliation) values(%s,%s,%s,%s,%s)"  # 注意此处与前一种形式的不同
         parm = (userName,gender, email, country,company)
         cur.execute(sql, parm)

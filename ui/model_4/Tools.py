@@ -34,7 +34,7 @@ class Tools():
     def addData(username, passwd,email,role,remark):
 
         cur,connect = db.getLink()
-        sql = "insert  into user (userName,passWord,email,role ,remark)  values (%s,%s,%s,%s,%s)"
+        sql = "insert  into input (userName,passWord,email,role ,remark)  values (%s,%s,%s,%s,%s)"
         parm=(username,passwd,email,role,remark)
         cur.execute(sql,parm)
         connect.commit()
@@ -42,22 +42,22 @@ class Tools():
 
     @staticmethod
     def editData(id,username, passwd,email,role,remark):
-
+        print("输入表更新")
         cur,connect = db.getLink()
-        command = "update user set userName='%s',passWord='%s',email='%s',role ='%s',remark='%s' where id=%s" % (
-        username, passwd,email,role,remark, id)
+        command = "update input  set imgName='%s',groupId='%s',parm1 ='%s' where id=%s" % (
+         passwd,email,role, id)
         cur.execute(command)
         connect.commit()
         connect.close()
 
     @staticmethod
     def delData(id):
-        print(33333)
+        print("输入表删除")
         cur,conn = db.getLink()
         # connect = sqlite3.connect('mydata.db')
         # c = connect.cursor()
         # print(1)
-        command = "delete from user where id = %s" % id
+        command = "delete from input  where id = %s" % id
         print(command)
         cur.execute(command)
         conn.commit()

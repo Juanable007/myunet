@@ -109,12 +109,12 @@ class FrontMainEntry(QMainWindow, Ui_MainWindow):
         self.WinModel_5.show()
 
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    window = FrontMainEntry()
-
-    window.show()
-    # WinModel_1=model_1.MyApp()
-    # # newWin = NewWindow()
-    # window.btn.clicked.connect(WinModel_1.show)
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     app = QtWidgets.QApplication(sys.argv)
+#     window = FrontMainEntry()
+#
+#     window.show()
+#     # WinModel_1=model_1.MyApp()
+#     # # newWin = NewWindow()
+#     # window.btn.clicked.connect(WinModel_1.show)
+#     sys.exit(app.exec_())
