@@ -194,12 +194,12 @@ class ImageSegment(QWidget):
         y = np.array([parm1, 1-parm1])
 
         plt.pie(y,
-                labels=['Rock', 'Pore'],  # 设置饼图标签
+                labels=['Pore', 'Rock'],  # 设置饼图标签
                 colors=["#d5695d", "#5d8ca8", "#65a479", "#a564c9"],  # 设置饼图颜色
                 explode=(0, 0.03),  # 第二部分突出显示，值越大，距离中心越远
                 autopct='%.2f%%',  # 格式化输出百分比
                 )
-        plt.legend(['Rock', 'Pore'])
+        plt.legend(['Pore', 'Rock'])
         plt.legend(loc='lower right')
         plt.title("岩石颗粒孔隙度占比饼状图")  # 设置标题
         # plt.show()
